@@ -110,3 +110,5 @@ export type ForecastHourlyItemsType = {
   wind: WindType
   windchill: WindchillType
 }
+
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
