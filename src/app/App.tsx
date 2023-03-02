@@ -10,8 +10,6 @@ function App() {
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const dispatch = useAppDispatch()
 
-  console.log(isInitialized)
-
   useEffect(() => {
     dispatch(getCities())
   }, [])
