@@ -1,0 +1,11 @@
+.basicHeader{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 30px;
+    gap: 10px;
+}

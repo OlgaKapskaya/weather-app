@@ -8,6 +8,7 @@ import { Loader } from '../common/components/loader/Loader'
 import { Notification } from '../common/components/notification/Notification'
 import { appIsInitializedSelector } from '../common/selectors/appSelectors'
 import { useNotification } from './hooks/useNotification'
+import { Header } from './header/Header'
 
 function App() {
   const isInitialized = useAppSelector(appIsInitializedSelector)
@@ -24,8 +25,8 @@ function App() {
 
   return (
     <div className='App'>
-      <Cities />
-      <Notification isVisible={isVisible} onClose={onClose}/>
+      <Header />
+      <Notification isVisible={isVisible} onClose={onClose} />
     </div>
   )
 }
