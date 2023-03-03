@@ -5,9 +5,13 @@ import { useAppDispatch } from '../common/hooks/useAppDispatch'
 import { Cities } from '../features/cities/Cities'
 import { useAppSelector } from '../common/hooks/useAppSelector'
 import { Loader } from '../common/components/loader/Loader'
+import { Notification } from '../common/components/notification/Notification'
+import { appIsInitializedSelector } from '../common/selectors/appSelectors'
+import { useNotification } from './hooks/useNotification'
 
 function App() {
-  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const isInitialized = useAppSelector(appIsInitializedSelector)
+  const { isVisible, onClose } = useNotification()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -21,6 +25,7 @@ function App() {
   return (
     <div className='App'>
       <Cities />
+      <Notification isVisible={isVisible} onClose={onClose}/>
     </div>
   )
 }
