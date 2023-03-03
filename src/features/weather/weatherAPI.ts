@@ -3,9 +3,9 @@ import { ForecastHourlyResponseType, ForecastSummaryResponseType } from '../../c
 
 export const weatherAPI = {
   getSummary(location: string) {
-    return instance.get<ForecastSummaryResponseType>(`weather?q=${location}&appid=d8b8feb797d8d7246525255551517358`)
+    return instance.get<ForecastSummaryResponseType>(`weather?q=${location}&appid=d8b8feb797d8d7246525255551517358&units=metric`)
   },
   getHourly(location: string) {
-    return instance.get(`forecast?q=${location}&appid=d8b8feb797d8d7246525255551517358`)
+    return instance.get(`forecast?q=${location}&appid=d8b8feb797d8d7246525255551517358&units=metric`)
   }
 }
