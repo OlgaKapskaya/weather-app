@@ -13,11 +13,11 @@ export const Notification: FC<NotificationPropsType> = ({ isVisible, onClose }) 
 
   const alertStatus = status === 'failed' ? 'error' : 'success'
 
-  setTimeout(onClose, 9000)
+  setTimeout(onClose, 5000)
 
   return (
     isVisible ?
-      <Alert status={alertStatus} style={{width: '300px'}}>
+      <Alert status={alertStatus}>
         <AlertIcon />
         <Box>
           <AlertTitle>{alertStatus.toUpperCase()}!</AlertTitle>

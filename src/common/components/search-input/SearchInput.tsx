@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { SearchIcon } from '@chakra-ui/icons'
 
@@ -10,7 +10,7 @@ type SearchInputPropsType = {
   disabled?: boolean
 }
 
-export const SearchInput: FC<SearchInputPropsType> = ({ label, searchValue, onChangeText, disabled }) => {
+export const SearchInput: FC<SearchInputPropsType> = memo(({ label, searchValue, onChangeText, disabled }) => {
   const [value, setValue] = useState(searchValue)
   const debouncedValue = useDebounce(value, 500)
 
@@ -39,4 +39,4 @@ export const SearchInput: FC<SearchInputPropsType> = ({ label, searchValue, onCh
       </InputGroup>
     </FormControl>
   )
-}
+})

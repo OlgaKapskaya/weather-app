@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { WeatherType } from '../../common/types'
+import { ForecastSummaryResponseType, MainType, WeatherType } from '../../common/types'
 import { setAppStatus } from '../../app/appSlice'
 import { weatherAPI } from './weatherAPI'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
@@ -8,13 +8,17 @@ import dayjs from 'dayjs'
 type InitialStateType = {
   weather: WeatherType[]
   currentDate: string
+  currentTime: string
   currentCity: string
+  main: MainType
 }
 
 const initialState: InitialStateType = {
   weather: [],
   currentDate: '',
+  currentTime: '',
   currentCity: '',
+  main: {} as MainType
 }
 
 export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
@@ -22,10 +26,8 @@ export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
     dispatch(setAppStatus('loading'))
     try {
       const res = await weatherAPI.getSummary(location)
-      const date = dayjs.unix(res.data.dt).format('DD.MM.YYYY')
 
-      dispatch(setWeather({ weather: res.data.weather }))
-      dispatch(setCurrentDate({ date }))
+      dispatch(setSummaryWeather({ weather: res.data }))
       dispatch(setAppStatus('succeeded'))
     } catch (e) {
       errorNetworkUtil(dispatch, e)
@@ -39,13 +41,13 @@ export const weatherSlice = createSlice({
     setCurrentCity: (state, action: PayloadAction<{ city: string }>) => {
       state.currentCity = action.payload.city
     },
-    setWeather: (state, action: PayloadAction<{ weather: WeatherType[] }>) => {
-      state.weather = action.payload.weather
-    },
-    setCurrentDate: (state, action: PayloadAction<{ date: string }>) => {
-      state.currentDate = action.payload.date
+    setSummaryWeather: (state, action: PayloadAction<{ weather: ForecastSummaryResponseType }>) => {
+      state.weather = action.payload.weather.weather
+      state.currentDate = dayjs.unix(action.payload.weather.dt).format('DD.MM.YYYY')
+      state.currentTime = dayjs.unix(action.payload.weather.dt).format('HH:mm')
+      state.main = action.payload.weather.main
     },
   },
 })
-export const { setCurrentCity, setCurrentDate, setWeather } = weatherSlice.actions
+export const { setCurrentCity, setSummaryWeather } = weatherSlice.actions
 export const weatherReducer = weatherSlice.reducer

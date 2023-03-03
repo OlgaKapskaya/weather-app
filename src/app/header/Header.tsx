@@ -14,6 +14,7 @@ export const Header = () => {
         <Divider orientation='vertical' />
       </Center>
       <IconButton aria-label='Set theme'
+                  variant='outline'
                   onClick={toggleColorMode}
                   icon={colorMode === 'dark' ? <SunIcon color='gray.300' /> : <MoonIcon color='gray.500' />} />
     </header>
