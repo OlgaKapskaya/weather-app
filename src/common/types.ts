@@ -14,9 +14,39 @@ export type ForecastSummaryResponseType = {
   weather: WeatherType[]
 }
 export type ForecastHourlyResponseType = {
-
+  city: {
+    coord: CoordType
+    country: string
+    id: number
+    name: string
+    population: number
+    sunrise: number
+    sunset: number
+    timezone: number
+  }
+  cnt: number
+  cod: string
+  list: ListType[]
+  message: any
 }
 
+
+export type ListType = {
+  clouds: CloudsType
+  dt: number //timestamp
+  dt_txt: string
+  main: MainType
+  pop: number
+  show: {
+    '3h': number
+  }
+  sys: {
+    pod: string
+  }
+  visibility: number
+  weather: WeatherType[]
+  wind: WindType
+}
 export type CoordType = {
   lat: number
   lon: number
@@ -55,8 +85,4 @@ export type WeatherType = {
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export type SysStateType = Omit<SysType, 'sunrise' | 'sunset'> & {
-  sunrise: string //timestamp
-  sunset: string //timestamp
-}
 

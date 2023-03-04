@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ForecastSummaryResponseType, MainType, SysStateType, WeatherType, WindType } from '../../common/types'
+import {
+  ForecastHourlyResponseType,
+  ForecastSummaryResponseType,
+  ListType,
+  MainType,
+  WeatherType,
+  WindType,
+} from '../../common/types'
 import { setAppStatus } from '../../app/appSlice'
 import { weatherAPI } from './weatherAPI'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
@@ -12,9 +19,11 @@ const initialState = {
   currentTime: '',
   currentCity: '',
   main: {} as MainType,
-  sys: {} as SysStateType,
+  sunrise: '',
+  sunset: '',
   wind: {} as WindType,
   visibility: 0,
+  hourlyList: [] as ListType[]
 }
 
 export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
@@ -24,6 +33,19 @@ export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
       const res = await weatherAPI.getSummary(location)
 
       dispatch(setSummaryWeather({ weather: res.data }))
+      dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+      errorNetworkUtil(dispatch, e)
+    }
+  })
+
+export const getHourlyForecast = createAsyncThunk('weather/getHourlyWeather',
+  async (location: string, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await weatherAPI.getHourly(location)
+
+      dispatch(setHourlyWeather({ weather: res.data }))
       dispatch(setAppStatus('succeeded'))
     } catch (e) {
       errorNetworkUtil(dispatch, e)
@@ -60,17 +82,15 @@ export const weatherSlice = createSlice({
       state.currentDate = dayjs.unix(action.payload.weather.dt).format('DD.MM.YYYY')
       state.currentTime = dayjs.unix(action.payload.weather.dt).format('HH:mm')
       state.main = action.payload.weather.main
-      state.sys = {
-        country: action.payload.weather.sys.country,
-        id: action.payload.weather.sys.id,
-        type: action.payload.weather.sys.type,
-        sunrise: dayjs.unix(action.payload.weather.sys.sunrise).format('HH:mm'),
-        sunset: dayjs.unix(action.payload.weather.sys.sunset).format('HH:mm'),
-      }
+      state.sunrise = dayjs.unix(action.payload.weather.sys.sunrise).format('HH:mm')
+      state.sunset = dayjs.unix(action.payload.weather.sys.sunset).format('HH:mm')
       state.wind = action.payload.weather.wind
       state.visibility = action.payload.weather.visibility
     },
+    setHourlyWeather: (state, action: PayloadAction<{ weather: ForecastHourlyResponseType }>) => {
+      state.hourlyList = action.payload.weather.list
+    },
   },
 })
-export const { setCurrentCity, setSummaryWeather } = weatherSlice.actions
+export const { setCurrentCity, setSummaryWeather, setHourlyWeather } = weatherSlice.actions
 export const weatherReducer = weatherSlice.reducer

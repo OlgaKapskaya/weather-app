@@ -6,6 +6,6 @@ export const weatherAPI = {
     return instance.get<ForecastSummaryResponseType>(`weather?q=${location}&appid=d8b8feb797d8d7246525255551517358&units=metric`)
   },
   getHourly(location: string) {
-    return instance.get(`forecast?q=${location}&appid=d8b8feb797d8d7246525255551517358&units=metric`)
+    return instance.get<ForecastHourlyResponseType>(`forecast?q=${location}&appid=d8b8feb797d8d7246525255551517358&units=metric`)
   }
 }

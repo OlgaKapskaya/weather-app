@@ -9,6 +9,7 @@ import { appIsInitializedSelector } from '../common/selectors/appSelectors'
 import { useNotification } from './hooks/useNotification'
 import { Header } from './header/Header'
 import { Pages } from './pages/Pages'
+import { weatherAPI } from '../features/weather/weatherAPI'
 
 function App() {
   const isInitialized = useAppSelector(appIsInitializedSelector)
@@ -17,6 +18,11 @@ function App() {
 
   useEffect(() => {
     dispatch(getCities())
+  }, [])
+
+  useEffect(() => {
+    weatherAPI.getHourly('Minsk')
+      .then(res => console.log(res))
   }, [])
 
   if (!isInitialized) {

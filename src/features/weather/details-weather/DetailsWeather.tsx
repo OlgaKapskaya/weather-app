@@ -1,3 +1,9 @@
+import { HStack, Text } from '@chakra-ui/react'
+
 export const DetailsWeather = () => {
-  return <div>DETAILS</div>
+  return (
+    <HStack>
+      <Text size='lg'>tet</Text>
+    </HStack>
+  )
 }

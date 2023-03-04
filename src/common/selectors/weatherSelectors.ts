@@ -13,8 +13,8 @@ export const maxTempSelector = (state: AppRootStateType) => state.weather.main.t
 export const pressureSelector = (state: AppRootStateType) => state.weather.main.pressure
 export const humiditySelector = (state: AppRootStateType) => state.weather.main.humidity
 
-export const sunriseSelector = (state: AppRootStateType) => state.weather.sys.sunrise
-export const sunsetSelector = (state: AppRootStateType) => state.weather.sys.sunset
+export const sunriseSelector = (state: AppRootStateType) => state.weather.sunrise
+export const sunsetSelector = (state: AppRootStateType) => state.weather.sunset
 
 export const windSpeedSelector = (state: AppRootStateType) => state.weather.wind.speed
 export const visibilitySelector = (state: AppRootStateType) => state.weather.visibility
