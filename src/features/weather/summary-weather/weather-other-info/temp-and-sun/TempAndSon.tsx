@@ -6,13 +6,13 @@ import { FC } from 'react'
 export type TempAndSonPropsType = {
   maxTemp: number
   minTemp: number
-  sunrise: string
-  sunset: string
+  sunrise?: string
+  sunset?: string
 }
 export const TempAndSon: FC<TempAndSonPropsType> = ({ maxTemp, minTemp, sunset, sunrise }) => {
 
   return (
-    <VStack align='start' width='50%'>
+    <VStack align='start' width='50%' minHeight='100%' height='171px'>
       <HStack>
         <BiUpArrowAlt size='30px' />
         <Text fontSize='xl'>Max temp: {tempCalculation(maxTemp)} °C</Text>
@@ -23,15 +23,19 @@ export const TempAndSon: FC<TempAndSonPropsType> = ({ maxTemp, minTemp, sunset, 
         <Text fontSize='xl'>Min temp: {tempCalculation(minTemp)} °C</Text>
       </HStack>
       <Divider />
-      <HStack>
-        <WiSunrise size='30px' />
-        <Text fontSize='xl'>Sunrise: {sunrise}</Text>
-      </HStack>
-      <Divider />
-      <HStack>
-        <WiSunset size='30px' />
-        <Text fontSize='xl'>Sunset: {sunset}</Text>
-      </HStack>
+      {sunrise && <>
+        <HStack>
+          <WiSunrise size='30px' />
+          <Text fontSize='xl'>Sunrise: {sunrise}</Text>
+        </HStack>
+        <Divider />
+      </>}
+      {sunset &&
+        <HStack>
+          <WiSunset size='30px' />
+          <Text fontSize='xl'>Sunset: {sunset}</Text>
+        </HStack>}
+
     </VStack>
   )
 }

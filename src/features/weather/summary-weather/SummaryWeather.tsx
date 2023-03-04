@@ -19,6 +19,7 @@ import {
   visibilitySelector,
   windSpeedSelector,
 } from '../../../common/selectors/weatherSelectors'
+import { Header } from './header/Header'
 
 export const SummaryWeather = () => {
   const dispatch = useAppDispatch()
@@ -45,7 +46,7 @@ export const SummaryWeather = () => {
 
   return (
     <div className={s.weatherContainer}>
-
+      <Header />
       <Stack spacing={3} className={s.stack}>
         <MainInfo />
         <Button onClick={onShowHourlyForecast}> Show hourly forecast </Button>
