@@ -32,7 +32,7 @@ export const WindAndPressure = () => {
       <Divider />
       <HStack>
         <AiOutlineEye size='30px' />
-        <Text fontSize='xl'>Visibility: {visibility} km</Text>
+        <Text fontSize='xl'>Visibility: {visibility / 1000} km</Text>
       </HStack>
     </VStack>
   )

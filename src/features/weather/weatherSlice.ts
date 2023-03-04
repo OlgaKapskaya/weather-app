@@ -4,27 +4,17 @@ import { setAppStatus } from '../../app/appSlice'
 import { weatherAPI } from './weatherAPI'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
 import dayjs from 'dayjs'
+import { AppRootStateType } from '../../app/store'
 
-type InitialStateType = {
-  weather: WeatherType[]
-  currentDate: string
-  currentTime: string
-  currentCity: string
-  main: MainType
-  sys: SysStateType
-  wind: WindType
-  visibility: number
-}
-
-const initialState: InitialStateType = {
-  weather: [],
+const initialState = {
+  weather: [] as WeatherType[],
   currentDate: '',
   currentTime: '',
   currentCity: '',
   main: {} as MainType,
   sys: {} as SysStateType,
   wind: {} as WindType,
-  visibility: 0
+  visibility: 0,
 }
 
 export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
@@ -39,6 +29,24 @@ export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
       errorNetworkUtil(dispatch, e)
     }
   })
+export const getStartCity = createAsyncThunk('weather/getCityFromLS', async (_, { dispatch }) => {
+  const local_storage = localStorage.getItem('current-city')
+  if (local_storage) {
+    const city = JSON.parse(local_storage)
+    dispatch(setCurrentCity({ city: city }))
+  }
+})
+export const getStartWeather = createAsyncThunk('weather/getWeather', async (_, { dispatch , getState}) => {
+  dispatch(getStartCity())
+  const state = getState() as AppRootStateType
+  const currentCity = state.weather.currentCity
+
+  if (currentCity) dispatch(getSummaryWeather(currentCity))
+  else {
+    dispatch(setCurrentCity({ city: 'Minsk' }))
+    dispatch(getSummaryWeather('Minsk'))
+  }
+})
 
 export const weatherSlice = createSlice({
   name: 'weather',

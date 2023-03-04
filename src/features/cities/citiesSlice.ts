@@ -21,14 +21,14 @@ export const getCities = createAsyncThunk('cities/getCities', async (_, { dispat
     dispatch(setAppInitialized(true))
   }
 })
-
 export const findCity = createAsyncThunk('cities/findCity', (city: string, { dispatch, getState }) => {
   dispatch(setAppStatus('loading'))
   const state = getState() as AppRootStateType
   try {
     const res = state.cities.cities.filter(elem => elem.name.toUpperCase() === city.toUpperCase())[0]
+    // const res = state.cities.cities.filter(elem => elem.name.toUpperCase().startsWith(city.toUpperCase()))[0]
     if (res) {
-      dispatch(setCurrentCity({ city: res.name }))
+      dispatch(saveCurrentCity(res.name))
       dispatch(getSummaryWeather(res.name))
       dispatch(setAppStatus('succeeded'))
     } else {
@@ -40,7 +40,11 @@ export const findCity = createAsyncThunk('cities/findCity', (city: string, { dis
     dispatch(setAppStatus('failed'))
   }
 })
-
+export const saveCurrentCity = createAsyncThunk('cities/saveCurrentCity', async (city: string, { dispatch}) => {
+  const serializedState = JSON.stringify(city)
+  localStorage.setItem("current-city", serializedState)
+  dispatch(setCurrentCity({ city }))
+})
 
 export const citiesSlice = createSlice({
   name: 'cities',
