@@ -5,13 +5,16 @@ import './index.css'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import {theme} from './common/constants/theme'
+import { theme } from './common/constants/theme'
+import { HashRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
     <ChakraProvider>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <App />
+      <HashRouter>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <App />
+      </HashRouter>
     </ChakraProvider>
   </Provider>,
 )
