@@ -4,7 +4,6 @@ import { RequestStatusType } from '../common/types'
 const initialState = {
   status: 'idle',
   message: null as string | null,
-  isInitialized: false,
 }
 
 export const appSlice = createSlice({
@@ -17,10 +16,7 @@ export const appSlice = createSlice({
     setAppStatus(state, action: PayloadAction<RequestStatusType>) {
       state.status = action.payload
     },
-    setAppInitialized(state, action: PayloadAction<boolean>) {
-      state.isInitialized = action.payload
-    },
   },
 })
-export const { setAppMessage, setAppStatus, setAppInitialized } = appSlice.actions
+export const { setAppMessage, setAppStatus } = appSlice.actions
 export const appReducer = appSlice.reducer

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { City, ICity } from 'country-state-city'
-import { setAppInitialized, setAppMessage, setAppStatus } from '../../app/appSlice'
+import { setAppMessage, setAppStatus } from '../../app/appSlice'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
 import { getSummaryWeather, setCurrentCity } from '../weather/weatherSlice'
 import { AppRootStateType } from '../../app/store'
@@ -17,8 +17,6 @@ export const getCities = createAsyncThunk('cities/getCities', async (_, { dispat
     dispatch(setAppStatus('succeeded'))
   } catch (e) {
     errorNetworkUtil(dispatch, e)
-  } finally {
-    dispatch(setAppInitialized(true))
   }
 })
 export const findCity = createAsyncThunk('cities/findCity', (city: string, { dispatch, getState }) => {

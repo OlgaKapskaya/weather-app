@@ -59,15 +59,15 @@ export const getStartCity = createAsyncThunk('weather/getCityFromLS', async (_, 
   }
 })
 export const getStartWeather = createAsyncThunk('weather/getWeather', async (_, { dispatch , getState}) => {
-  dispatch(getStartCity())
-  const state = getState() as AppRootStateType
-  const currentCity = state.weather.currentCity
+    dispatch(getStartCity())
+    const state = getState() as AppRootStateType
+    const currentCity = state.weather.currentCity
 
-  if (currentCity) dispatch(getSummaryWeather(currentCity))
-  else {
-    dispatch(setCurrentCity({ city: 'Minsk' }))
-    dispatch(getSummaryWeather('Minsk'))
-  }
+    if (currentCity) dispatch(getSummaryWeather(currentCity))
+    else {
+      dispatch(setCurrentCity({ city: 'Minsk' }))
+      dispatch(getSummaryWeather('Minsk'))
+    }
 })
 
 export const weatherSlice = createSlice({

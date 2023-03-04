@@ -8,8 +8,9 @@ import {
   timeSelector,
   weatherSelector,
 } from '../../../../common/selectors/weatherSelectors'
-import { Text, VStack } from '@chakra-ui/react'
+import { SkeletonText, Text, VStack } from '@chakra-ui/react'
 import { tempCalculation } from '../../../../common/helpers/tempCalculation'
+import { appStatusSelector } from '../../../../common/selectors/appSelectors'
 
 export const MainInfo = () => {
   const city = useAppSelector(citySelector)
@@ -18,6 +19,8 @@ export const MainInfo = () => {
   const currentTemp = useAppSelector(currentTempSelector)
   const feelTemp = useAppSelector(feelTempSelector)
   const weather = useAppSelector(weatherSelector)
+
+  const status = useAppSelector(appStatusSelector)
 
   return (
     <>
@@ -30,9 +33,12 @@ export const MainInfo = () => {
       </div>
       <div className={s.tempContainer}>
         <div className={s.currentTemp}>
-          <Text fontSize='7xl'>{tempCalculation(currentTemp)} °C</Text>
-          <Text fontSize='lg'>Real feel: {tempCalculation(feelTemp)} °C</Text>
-          <Text fontSize='md'>{weather[0] && weather[0].description}</Text>
+          <SkeletonText isLoaded={status !== 'loading'}>
+            <Text fontSize='7xl'>{tempCalculation(currentTemp)} °C</Text>
+            <Text fontSize='lg'>Real feel: {tempCalculation(feelTemp)} °C</Text>
+            <Text fontSize='md'>{weather[0] && weather[0].description}</Text>
+          </SkeletonText>
+
         </div>
       </div>
     </>

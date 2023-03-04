@@ -2,9 +2,6 @@ import s from './SummaryWeather.module.css'
 import { Button, Divider, Stack } from '@chakra-ui/react'
 import { MainInfo } from './weather-main-info/MainInfo'
 import { OtherInfo } from './weather-other-info/OtherInfo'
-import { useEffect } from 'react'
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { getStartWeather } from '../weatherSlice'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../../common/constants/path'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
@@ -22,7 +19,6 @@ import {
 import { Header } from './header/Header'
 
 export const SummaryWeather = () => {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const maxTemp = useAppSelector(maxTempSelector)
@@ -33,12 +29,7 @@ export const SummaryWeather = () => {
   const humidity = useAppSelector(humiditySelector)
   const windSpeed = useAppSelector(windSpeedSelector)
   const visibility = useAppSelector(visibilitySelector)
-
   const city = useAppSelector(citySelector)
-
-  useEffect(() => {
-    dispatch(getStartWeather())
-  }, [])
 
   const onShowHourlyForecast = () => {
     navigate(PATH.DETAILS + `/${city}`)
