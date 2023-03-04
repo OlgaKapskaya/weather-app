@@ -1,18 +1,15 @@
 import { Divider, HStack, Text, VStack } from '@chakra-ui/react'
 import { AiOutlineEye, WiBarometer, WiHumidity, WiStrongWind } from 'react-icons/all'
-import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
-import {
-  humiditySelector,
-  pressureSelector,
-  visibilitySelector,
-  windSpeedSelector,
-} from '../../../../../common/selectors/weatherSelectors'
+import { FC } from 'react'
 
-export const WindAndPressure = () => {
-  const pressure = useAppSelector(pressureSelector)
-  const humidity = useAppSelector(humiditySelector)
-  const windSpeed = useAppSelector(windSpeedSelector)
-  const visibility = useAppSelector(visibilitySelector)
+export type WindAndPressurePropsType = {
+  pressure: number
+  humidity: number
+  windSpeed: number
+  visibility: number
+}
+export const WindAndPressure: FC<WindAndPressurePropsType> = ({ pressure, windSpeed, visibility, humidity }) => {
+
   return (
     <VStack align='start' width='50%'>
       <HStack>

@@ -23,7 +23,7 @@ const initialState = {
   sunset: '',
   wind: {} as WindType,
   visibility: 0,
-  hourlyList: [] as ListType[]
+  forecastList: [] as ListType[]
 }
 
 export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
@@ -88,7 +88,7 @@ export const weatherSlice = createSlice({
       state.visibility = action.payload.weather.visibility
     },
     setHourlyWeather: (state, action: PayloadAction<{ weather: ForecastHourlyResponseType }>) => {
-      state.hourlyList = action.payload.weather.list
+      state.forecastList = action.payload.weather.list
     },
   },
 })

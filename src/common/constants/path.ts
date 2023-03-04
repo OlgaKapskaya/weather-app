@@ -1,4 +1,4 @@
 export const PATH = {
   CURRENT: 'current',
-  DETAILS: 'details'
+  DETAILS: 'hourly'
 }

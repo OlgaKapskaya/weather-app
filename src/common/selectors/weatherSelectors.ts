@@ -18,3 +18,5 @@ export const sunsetSelector = (state: AppRootStateType) => state.weather.sunset
 
 export const windSpeedSelector = (state: AppRootStateType) => state.weather.wind.speed
 export const visibilitySelector = (state: AppRootStateType) => state.weather.visibility
+
+export const forecastListSelector = (state: AppRootStateType) => state.weather.forecastList

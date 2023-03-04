@@ -1,0 +1,14 @@
+.container {
+    padding: 10px;
+    margin: 0;
+    margin-inline-start: 0;
+    -webkit-margin-start: 0;
+
+    width: 100%;
+}
+.weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

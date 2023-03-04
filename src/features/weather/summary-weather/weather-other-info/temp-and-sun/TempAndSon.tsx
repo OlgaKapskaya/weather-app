@@ -1,19 +1,15 @@
 import { Divider, HStack, Text, VStack } from '@chakra-ui/react'
 import { BiDownArrowAlt, BiUpArrowAlt, WiSunrise, WiSunset } from 'react-icons/all'
 import { tempCalculation } from '../../../../../common/helpers/tempCalculation'
-import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
-import {
-  maxTempSelector,
-  minTempSelector,
-  sunriseSelector,
-  sunsetSelector,
-} from '../../../../../common/selectors/weatherSelectors'
+import { FC } from 'react'
 
-export const TempAndSon = () => {
-  const maxTemp = useAppSelector(maxTempSelector)
-  const minTemp = useAppSelector(minTempSelector)
-  const sunrise = useAppSelector(sunriseSelector)
-  const sunset = useAppSelector(sunsetSelector)
+export type TempAndSonPropsType = {
+  maxTemp: number
+  minTemp: number
+  sunrise: string
+  sunset: string
+}
+export const TempAndSon: FC<TempAndSonPropsType> = ({ maxTemp, minTemp, sunset, sunrise }) => {
 
   return (
     <VStack align='start' width='50%'>
