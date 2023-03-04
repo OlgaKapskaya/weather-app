@@ -1,0 +1,11 @@
+.infoContainer,
+.tempContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.currentTemp {
+    margin-bottom: 30px;
+}
+

@@ -55,3 +55,8 @@ export type WeatherType = {
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
+export type SysStateType = Omit<SysType, 'sunrise' | 'sunset'> & {
+  sunrise: string //timestamp
+  sunset: string //timestamp
+}
+

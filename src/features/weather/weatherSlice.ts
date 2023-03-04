@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ForecastSummaryResponseType, MainType, WeatherType } from '../../common/types'
+import { ForecastSummaryResponseType, MainType, SysStateType, WeatherType, WindType } from '../../common/types'
 import { setAppStatus } from '../../app/appSlice'
 import { weatherAPI } from './weatherAPI'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
@@ -11,6 +11,9 @@ type InitialStateType = {
   currentTime: string
   currentCity: string
   main: MainType
+  sys: SysStateType
+  wind: WindType
+  visibility: number
 }
 
 const initialState: InitialStateType = {
@@ -18,7 +21,10 @@ const initialState: InitialStateType = {
   currentDate: '',
   currentTime: '',
   currentCity: '',
-  main: {} as MainType
+  main: {} as MainType,
+  sys: {} as SysStateType,
+  wind: {} as WindType,
+  visibility: 0
 }
 
 export const getSummaryWeather = createAsyncThunk('weather/getSummaryWeather',
@@ -46,6 +52,15 @@ export const weatherSlice = createSlice({
       state.currentDate = dayjs.unix(action.payload.weather.dt).format('DD.MM.YYYY')
       state.currentTime = dayjs.unix(action.payload.weather.dt).format('HH:mm')
       state.main = action.payload.weather.main
+      state.sys = {
+        country: action.payload.weather.sys.country,
+        id: action.payload.weather.sys.id,
+        type: action.payload.weather.sys.type,
+        sunrise: dayjs.unix(action.payload.weather.sys.sunrise).format('HH:mm'),
+        sunset: dayjs.unix(action.payload.weather.sys.sunset).format('HH:mm'),
+      }
+      state.wind = action.payload.weather.wind
+      state.visibility = action.payload.weather.visibility
     },
   },
 })
