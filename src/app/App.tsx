@@ -23,7 +23,6 @@ function App() {
     <div className='App'>
       {status === 'loading' && <Progress size='xs' isIndeterminate />}
       <Pages />
-
     </div>
   )
 }
