@@ -1,7 +1,9 @@
-import { FormControl, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { Button, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { SearchIcon } from '@chakra-ui/icons'
+import s from '../../../features/cities/Cities.module.css'
+import { ICity } from 'country-state-city'
 
 type SearchInputPropsType = {
   label?: string
@@ -9,6 +11,8 @@ type SearchInputPropsType = {
   onChangeText?: (value: string) => void
   disabled?: boolean
   placeholder?: string
+  options?: ICity[]
+  onClickOption?: (value: string) => void
 }
 
 export const SearchInput: FC<SearchInputPropsType> = memo(({
@@ -17,12 +21,20 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
                                                              onChangeText,
                                                              disabled,
                                                              placeholder,
+                                                             options,
+                                                             onClickOption,
                                                            }) => {
   const [value, setValue] = useState(searchValue)
   const debouncedValue = useDebounce(value, 500)
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
+  }
+
+  const onClickOptionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //@ts-ignore
+    onClickOption?.(e.target.innerText)
+    setValue('')
   }
 
   useEffect(() => {
@@ -35,7 +47,7 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
   }, [debouncedValue])
 
   return (
-    <FormControl>
+    <>
       {label && <FormLabel>{label}</FormLabel>}
       <InputGroup>
         <Input onChange={onChangeHandler} value={value} disabled={disabled} placeholder={placeholder} />
@@ -44,6 +56,19 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
           children={<SearchIcon color='gray.300' />}
         />
       </InputGroup>
-    </FormControl>
+      {
+        options &&
+        <VStack className={s.container}>
+          {
+            options.map(elem => <Button colorScheme='blue'
+                                        key={elem.latitude}
+                                        onClick={onClickOptionHandler}
+                                        className={s.searchButton}>
+              {`${elem.name}, ${elem.countryCode}`}
+            </Button>)
+          }
+        </VStack>
+      }
+    </>
   )
 })

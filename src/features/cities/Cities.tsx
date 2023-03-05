@@ -3,10 +3,8 @@ import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { SearchInput } from '../../common/components/search-input/SearchInput'
 import { chooseCity, findCity, setSearchCities } from './citiesSlice'
 import { appStatusSelector } from '../../common/selectors/appSelectors'
-import { Button, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { searchCitiesSelector } from '../../common/selectors/citySelectors'
-import s from './Cities.module.css'
 
 
 export const Cities = () => {
@@ -22,9 +20,8 @@ export const Cities = () => {
     }
   }
 
-  const chooseCityHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //@ts-ignore
-    dispatch(chooseCity(e.target.innerText))
+  const chooseCityHandler = (city: string) => {
+    dispatch(chooseCity(city))
     dispatch(setSearchCities({ cities: [] }))
   }
 
@@ -33,21 +30,9 @@ export const Cities = () => {
       <SearchInput searchValue=''
                    onChangeText={searchCity}
                    disabled={isLoading}
-                   placeholder='Enter city...' />
-
-      {
-        searchCities &&
-        <VStack className={s.container}>
-          {
-            searchCities.map(elem => <Button colorScheme='blue'
-                                             key={elem.latitude}
-                                             onClick={chooseCityHandler}
-                                             className={s.searchButton}>
-              {`${elem.name}, ${elem.countryCode}`}
-            </Button>)
-          }
-        </VStack>
-      }
+                   placeholder='Enter city...'
+                   options={searchCities}
+                   onClickOption={chooseCityHandler} />
     </div>
   )
 }
