@@ -11,6 +11,12 @@ SPA для отображения погоды в указанном город�
 
 ## Tech Stack
 
-**Client:** React, Redux-Toolkit, Axios, React router dom, Chakra UI, React Icons
+**Client:** React, Redux-Toolkit, Axios, React router dom, Chakra UI, React Icons, React toastify
 
+## Screenshots
 
+Главная страница, с указанием текущей погоды:
+![App Screenshot](https://user-images.githubusercontent.com/109616298/222961501-c658125b-91b5-417f-a520-83ba53c7d18f.png)
+
+Побочная страница, отображающая почасовой прогноз погоды для указанного города:
+![App Screenshot](https://user-images.githubusercontent.com/109616298/222961585-a3bcac93-6191-4bc2-b764-efe41a153e82.png)
