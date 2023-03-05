@@ -7,6 +7,7 @@ import { AppRootStateType } from '../../app/store'
 
 const initialState = {
   cities: [] as ICity[],
+  searchCities: [] as ICity[],
 }
 
 export const getCities = createAsyncThunk('cities/getCities', async (_, { dispatch }) => {
@@ -23,24 +24,35 @@ export const findCity = createAsyncThunk('cities/findCity', (city: string, { dis
   dispatch(setAppStatus('loading'))
   const state = getState() as AppRootStateType
   try {
-    const res = state.cities.cities.filter(elem => elem.name.toUpperCase() === city.toUpperCase())[0]
-    // const res = state.cities.cities.filter(elem => elem.name.toUpperCase().startsWith(city.toUpperCase()))[0]
-    if (res) {
-      dispatch(saveCurrentCity(res.name))
-      dispatch(getSummaryWeather(res.name))
+    const res = state.cities.cities.filter(elem => elem.name.toUpperCase().startsWith(city.toUpperCase()))
+    if (res.length > 0) {
+      dispatch(setSearchCities({ cities: res }))
       dispatch(setAppStatus('succeeded'))
     } else {
       dispatch(setAppStatus('failed'))
-      dispatch(setAppMessage(`${city} not found, try again`))
+      dispatch(setAppMessage(`City "${city}" not found, try again`))
     }
   } catch (e) {
     console.log(e)
     dispatch(setAppStatus('failed'))
   }
 })
-export const saveCurrentCity = createAsyncThunk('cities/saveCurrentCity', async (city: string, { dispatch}) => {
+
+export const chooseCity = createAsyncThunk('cities/chooseCity', (city: string, { dispatch}) => {
+  dispatch(setAppStatus('loading'))
+  try {
+    dispatch(saveCurrentCity(city))
+    dispatch(getSummaryWeather(city))
+    dispatch(setAppStatus('succeeded'))
+  } catch (e) {
+    console.log(e)
+    dispatch(setAppStatus('failed'))
+  }
+})
+
+export const saveCurrentCity = createAsyncThunk('cities/saveCurrentCity', async (city: string, { dispatch }) => {
   const serializedState = JSON.stringify(city)
-  localStorage.setItem("current-city", serializedState)
+  localStorage.setItem('current-city', serializedState)
   dispatch(setCurrentCity({ city }))
 })
 
@@ -51,8 +63,11 @@ export const citiesSlice = createSlice({
     setCities: (state, action: PayloadAction<{ cities: ICity[] }>) => {
       state.cities = action.payload.cities
     },
+    setSearchCities: (state, action: PayloadAction<{ cities: ICity[] }>) => {
+      state.searchCities = action.payload.cities
+    },
   },
 })
 
-export const { setCities } = citiesSlice.actions
+export const { setCities, setSearchCities } = citiesSlice.actions
 export const citiesReducer = citiesSlice.reducer

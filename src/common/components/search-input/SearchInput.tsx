@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { SearchIcon } from '@chakra-ui/icons'
 
@@ -28,15 +28,18 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({ label, searchValue,
   }, [debouncedValue])
 
   return (
-    <FormControl>
-      {label && <FormLabel>{label}</FormLabel>}
-      <InputGroup>
-        <Input onChange={onChangeHandler} value={value} disabled={disabled} />
-        <InputRightElement
-          pointerEvents='none'
-          children={<SearchIcon color='gray.300' />}
-        />
-      </InputGroup>
-    </FormControl>
+    <>
+      <FormControl>
+        {label && <FormLabel>{label}</FormLabel>}
+        <InputGroup>
+          <Input onChange={onChangeHandler} value={value} disabled={disabled} />
+          <InputRightElement
+            pointerEvents='none'
+            children={<SearchIcon color='gray.300' />}
+          />
+        </InputGroup>
+      </FormControl>
+
+    </>
   )
 })
