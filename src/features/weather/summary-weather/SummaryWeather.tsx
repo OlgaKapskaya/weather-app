@@ -17,6 +17,10 @@ import {
   windSpeedSelector,
 } from '../../../common/selectors/weatherSelectors'
 import { Header } from './header/Header'
+import { useEffect } from 'react'
+import { getCities } from '../../cities/citiesSlice'
+import { getStartWeather } from '../weatherSlice'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 
 export const SummaryWeather = () => {
   const navigate = useNavigate()
@@ -31,9 +35,16 @@ export const SummaryWeather = () => {
   const visibility = useAppSelector(visibilitySelector)
   const city = useAppSelector(citySelector)
 
+  const dispatch = useAppDispatch()
+
   const onShowHourlyForecast = () => {
-    navigate(PATH.DETAILS + `/${city}`)
+    navigate('/' + PATH.DETAILS + `/${city}`)
   }
+
+  useEffect(() => {
+    dispatch(getCities())
+    dispatch(getStartWeather())
+  }, [])
 
   return (
     <div className={s.weatherContainer}>
