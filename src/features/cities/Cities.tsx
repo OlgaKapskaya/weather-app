@@ -25,7 +25,7 @@ export const Cities = () => {
   const chooseCityHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     //@ts-ignore
     dispatch(chooseCity(e.target.innerText))
-    dispatch(setSearchCities({cities: []}))
+    dispatch(setSearchCities({ cities: [] }))
   }
 
   return (
@@ -33,13 +33,18 @@ export const Cities = () => {
       <SearchInput searchValue=''
                    onChangeText={searchCity}
                    disabled={isLoading}
-                   label='Search city' />
+                   placeholder='Enter city...' />
 
       {
         searchCities &&
         <VStack className={s.container}>
           {
-            searchCities.map(elem => <Button colorScheme='blue' onClick={chooseCityHandler} className={s.searchButton}>{elem.name}</Button>)
+            searchCities.map(elem => <Button colorScheme='blue'
+                                             key={elem.latitude}
+                                             onClick={chooseCityHandler}
+                                             className={s.searchButton}>
+              {`${elem.name}, ${elem.countryCode}`}
+            </Button>)
           }
         </VStack>
       }

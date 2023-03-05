@@ -8,9 +8,16 @@ type SearchInputPropsType = {
   searchValue: string
   onChangeText?: (value: string) => void
   disabled?: boolean
+  placeholder?: string
 }
 
-export const SearchInput: FC<SearchInputPropsType> = memo(({ label, searchValue, onChangeText, disabled }) => {
+export const SearchInput: FC<SearchInputPropsType> = memo(({
+                                                             label,
+                                                             searchValue,
+                                                             onChangeText,
+                                                             disabled,
+                                                             placeholder,
+                                                           }) => {
   const [value, setValue] = useState(searchValue)
   const debouncedValue = useDebounce(value, 500)
 
@@ -28,18 +35,15 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({ label, searchValue,
   }, [debouncedValue])
 
   return (
-    <>
-      <FormControl>
-        {label && <FormLabel>{label}</FormLabel>}
-        <InputGroup>
-          <Input onChange={onChangeHandler} value={value} disabled={disabled} />
-          <InputRightElement
-            pointerEvents='none'
-            children={<SearchIcon color='gray.300' />}
-          />
-        </InputGroup>
-      </FormControl>
-
-    </>
+    <FormControl>
+      {label && <FormLabel>{label}</FormLabel>}
+      <InputGroup>
+        <Input onChange={onChangeHandler} value={value} disabled={disabled} placeholder={placeholder} />
+        <InputRightElement
+          pointerEvents='none'
+          children={<SearchIcon color='gray.300' />}
+        />
+      </InputGroup>
+    </FormControl>
   )
 })

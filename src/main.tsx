@@ -11,8 +11,8 @@ import { HashRouter } from 'react-router-dom'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
     <ChakraProvider>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <HashRouter>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </HashRouter>
     </ChakraProvider>

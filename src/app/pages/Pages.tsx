@@ -1,16 +1,16 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { PATH } from '../../common/constants/path'
 import { SummaryWeather } from '../../features/weather/summary-weather/SummaryWeather'
-import { DetailsWeather } from '../../features/weather/details-weather/DetailsWeather'
+import { ForecastHourly } from '../../features/weather/forecast-hourly/ForecastHourly'
 
 export const Pages = () => {
 
-
   return (
     <Routes>
-      <Route path='/' element={<Navigate to={PATH.CURRENT} />} />
-      <Route path={PATH.CURRENT} element={<SummaryWeather />} />
-      <Route path={PATH.CURRENT + '/' + PATH.DETAILS + '/:city'} element={<DetailsWeather />} />
+      <Route index path='/' element={<SummaryWeather />} />
+      <Route path={PATH.DETAILS + '/:city'} element={<ForecastHourly />} />
     </Routes>
   )
 }
+
+

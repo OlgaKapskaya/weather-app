@@ -34,7 +34,7 @@ export const HourlyMainInfo: FC<HourlyMainInfoPropsType> = ({
         <div> {description} </div>
       </VStack>
 
-      <VStack>
+      <VStack width='200px'>
         <Text> Real feel: {tempCalculation(feels_like)} °C</Text>
       </VStack>
     </>

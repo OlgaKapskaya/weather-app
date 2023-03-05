@@ -1,0 +1,24 @@
+.stack {
+    margin-top: 70px;
+    width: 80%;
+    height: 80%;
+    padding: 30px;
+    justify-content: center;
+
+    flex-wrap: wrap;
+    gap: 10px
+}
+
+.header {
+    padding: 20px 30px 10px 30px;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--chakra-colors-chakra-body-bg);
+    z-index: 100;
+
+    border-bottom: 1px solid;
+}

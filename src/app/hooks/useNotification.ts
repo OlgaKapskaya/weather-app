@@ -12,7 +12,7 @@ export const useNotification = () => {
   const { colorMode } = useColorMode()
 
   const notify = () => {
-    toast.error(message, {
+    toast.info(message, {
       position: toast.POSITION.TOP_CENTER,
       theme: colorMode,
     })

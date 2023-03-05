@@ -9,7 +9,7 @@ export const Header = () => {
     <div className={s.header}>
       <Cities />
 
-      <Center height='50px'>
+      <Center height='40px'>
         <Divider orientation='vertical' />
       </Center>
       <Tooltip hasArrow label='Change color mode'>
