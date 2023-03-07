@@ -57,7 +57,7 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
         />
       </InputGroup>
       {
-        options &&
+        options && options?.length > 0 &&
         <VStack className={s.container}>
           {
             options.map(elem => <Button colorScheme='blue'
