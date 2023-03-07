@@ -38,7 +38,7 @@ export const SummaryWeather = () => {
   const dispatch = useAppDispatch()
 
   const onShowHourlyForecast = () => {
-    navigate('/' + PATH.DETAILS + `/${city}`)
+    navigate(PATH.DETAILS + `/${city}`)
   }
 
   useEffect(() => {

@@ -10,7 +10,7 @@ const routes: RouteObject[] = [{
   element: <App />,
   children: [
     {
-      path: PATH.CURRENT,
+      path: '/',
       element: <SummaryWeather />,
     },
     {
