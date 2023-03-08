@@ -32,7 +32,7 @@ export const WindAndPressure: FC<WindAndPressurePropsType> = ({ pressure, windSp
       <HStack>
         <WiStrongWind size='30px' />
         <SkeletonText isLoaded={status !== 'loading'}>
-          <Text fontSize='xl'>Wind speed: {windSpeed} km/h</Text>
+          <Text fontSize='xl'>Wind speed: {windSpeed} m/s</Text>
         </SkeletonText>
       </HStack>
       <Divider />

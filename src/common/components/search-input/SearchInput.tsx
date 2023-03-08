@@ -31,9 +31,8 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
     setValue(e.currentTarget.value)
   }
 
-  const onClickOptionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //@ts-ignore
-    onClickOption?.(e.target.innerText)
+  const onClickOptionHandler = (value: string) => {
+    onClickOption?.(value)
     setValue('')
   }
 
@@ -60,9 +59,9 @@ export const SearchInput: FC<SearchInputPropsType> = memo(({
         options && options?.length > 0 &&
         <VStack className={s.container}>
           {
-            options.map(elem => <Button colorScheme='blue'
-                                        key={elem.latitude}
-                                        onClick={onClickOptionHandler}
+            options.map((elem, index) => <Button colorScheme='blue'
+                                        key={index}
+                                        onClick={() => onClickOptionHandler(elem.name)}
                                         className={s.searchButton}>
               {`${elem.name}, ${elem.countryCode}`}
             </Button>)

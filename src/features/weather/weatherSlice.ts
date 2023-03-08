@@ -12,6 +12,7 @@ import { weatherAPI } from './weatherAPI'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
 import dayjs from 'dayjs'
 import { AppRootStateType } from '../../app/store'
+import { getFromLocalStorage } from '../../common/utils/getFromLocalStorage'
 
 const initialState = {
   weather: [] as WeatherType[],
@@ -52,11 +53,8 @@ export const getHourlyForecast = createAsyncThunk('weather/getHourlyWeather',
     }
   })
 export const getStartCity = createAsyncThunk('weather/getCityFromLS', async (_, { dispatch }) => {
-  const local_storage = localStorage.getItem('current-city')
-  if (local_storage) {
-    const city = JSON.parse(local_storage)
-    dispatch(setCurrentCity({ city: city }))
-  }
+  const city = getFromLocalStorage('current-city')
+  if (city) dispatch(setCurrentCity({ city: city }))
 })
 export const getStartWeather = createAsyncThunk('weather/getWeather', async (_, { dispatch , getState}) => {
     dispatch(getStartCity())

@@ -4,6 +4,7 @@ import { setAppMessage, setAppStatus } from '../../app/appSlice'
 import { errorNetworkUtil } from '../../common/utils/networkErrorUtil'
 import { getSummaryWeather, setCurrentCity } from '../weather/weatherSlice'
 import { AppRootStateType } from '../../app/store'
+import { setToLocalStorage } from '../../common/utils/setToLocalStorage'
 
 const initialState = {
   cities: [] as ICity[],
@@ -38,7 +39,7 @@ export const findCity = createAsyncThunk('cities/findCity', (city: string, { dis
   }
 })
 
-export const chooseCity = createAsyncThunk('cities/chooseCity', (city: string, { dispatch}) => {
+export const chooseCity = createAsyncThunk('cities/chooseCity', (city: string, { dispatch }) => {
   dispatch(setAppStatus('loading'))
   try {
     dispatch(saveCurrentCity(city))
@@ -51,8 +52,7 @@ export const chooseCity = createAsyncThunk('cities/chooseCity', (city: string, {
 })
 
 export const saveCurrentCity = createAsyncThunk('cities/saveCurrentCity', async (city: string, { dispatch }) => {
-  const serializedState = JSON.stringify(city)
-  localStorage.setItem('current-city', serializedState)
+  setToLocalStorage(city, 'current-city')
   dispatch(setCurrentCity({ city }))
 })
 
